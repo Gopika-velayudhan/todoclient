@@ -1,5 +1,6 @@
+// tasksSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchTasks, createTask, updateTask, deleteTask } from './api';
+import { fetchTasks, createTask, updateTask, deleteTask } from '../Store/Api';
 
 export const fetchAllTasks = createAsyncThunk('tasks/fetchAll', async () => {
     const response = await fetchTasks();
@@ -24,7 +25,7 @@ export const removeTask = createAsyncThunk('tasks/remove', async (id) => {
 const tasksSlice = createSlice({
     name: 'tasks',
     initialState: {
-        tasks: [],
+        tasks: [], 
         status: 'idle',
         error: null,
     },
@@ -43,7 +44,7 @@ const tasksSlice = createSlice({
                 state.error = action.error.message;
             })
             .addCase(addNewTask.fulfilled, (state, action) => {
-                state.tasks.push(action.payload);
+                state.tasks.push(action.payload); 
             })
             .addCase(editTask.fulfilled, (state, action) => {
                 const index = state.tasks.findIndex(task => task._id === action.payload._id);
